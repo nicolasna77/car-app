@@ -4,8 +4,10 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import CalculateTimeForm from "@/components/form/CalculateTimeForm";
 import { CarList } from "@/components/CarList";
 
-export default async function Cars() {
+export default async function Home() {
   const result = await getCars();
+  const cars = result.success ? result.data : [];
+
   return (
     <div className="py-8 space-y-8">
       <div className="grid md:grid-cols-2 gap-4">
@@ -23,12 +25,12 @@ export default async function Cars() {
             <h2 className="text-2xl font-bold">Calculer le temps de trajet</h2>
           </CardHeader>
           <CardContent>
-            <CalculateTimeForm cars={result.data} />
+            <CalculateTimeForm cars={cars} />
           </CardContent>
         </Card>
       </div>
 
-      <CarList Cars={result.data} />
+      <CarList Cars={cars} />
     </div>
   );
 }
